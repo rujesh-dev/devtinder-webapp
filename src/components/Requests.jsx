@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { BASE_URL } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux';
-import { addRequests } from '../utils/requestSlice';
+import { addRequests, removeRequest } from '../utils/requestSlice';
 import { useSearchParams } from 'react-router-dom';
 
 const Requests = () => {
@@ -17,6 +17,17 @@ const Requests = () => {
 
     } catch (e) {
       console.error(e.message)
+    }
+  }
+
+
+  const handleRequest = async(status, _id) =>{
+    try{
+      const res = await axios.post(BASE_URL+"/request/review/"+status+"/"+_id, {}, {withCredentials: true});
+      dispatch(removeRequest(_id))
+    }catch(e){
+      console.error(e.message);
+      
     }
   }
 
@@ -56,8 +67,8 @@ const Requests = () => {
                   <p>{about}</p>
                 </div>
 
-                <button className="btn btn-active btn-primary">Primary</button>
-                <button className="btn btn-active btn-secondary">Secondary</button>
+                <button className="btn btn-active btn-primary" onClick={()=>handleRequest('rejected', request._id)} >Ignore</button>
+                <button className="btn btn-active btn-secondary" onClick={()=>handleRequest('accepted', request._id)}>Interested</button>
               </div>)
 
           })

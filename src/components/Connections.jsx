@@ -27,13 +27,13 @@ const Connections = () => {
 
     if (!connections) return;
 
-    if (connections.length === 0) return <h1>No Connections!</h1>
+    if (connections.length === 0) return <h1 className='text-center'>No Connections!</h1>
 
 
     return (
         <div className='text-center my-5' key={connections._id}>
             <h1 className='my-5 text-2xl'>Connections</h1>
-            <div className='flex justify-center flex-col items-center'>
+            <div className='flex justify-center flex-col items-center gap-4'>
                 {
                     connections.map((connection) => {
                         const { _id, firstName, lastName, photoUrl, age, gender, about } = connection
