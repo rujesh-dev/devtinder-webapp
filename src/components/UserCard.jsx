@@ -35,7 +35,7 @@ const UserCard = ({ feed }) => {
                     <p>{age + ", " + gender}</p>
                     <p>{about}</p>
                     <div className="card-actions justify-center">
-                        <button className="btn btn-primary" onClick={()=> handleSendRequest("ignored", _id)}>Ignore</button>
+                        <button className="btn btn-primary" onClick={()=> handleSendRequest('ignored',_id)}>Ignore</button>
                         <button className="btn btn-secondary" onClick={()=> handleSendRequest("interested", _id)} >Interested</button>
 
                     </div>

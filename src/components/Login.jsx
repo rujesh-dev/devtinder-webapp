@@ -3,12 +3,17 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/constants';
 
 function Login() {
 
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [ email, setEmailId] = useState("chintu@gmail.com");
     const [password, setPassword] = useState("Chintu@123");
     const [error, setError] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(true)
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -26,11 +31,39 @@ function Login() {
             setError(e.response.data);
         }
     }
+
+    const handleSignUp = async() => {
+       try{
+         const res = await axios.post(BASE_URL+"/signup", {
+            firstName,
+            lastName,
+            email,
+            password
+        }, {withCredentials: true})
+         dispatch(addUser(res.data))
+         return navigate("/profile");
+       }catch(e){
+        console.error(e.message)
+       }
+    }
+
+
     return (
 
         <div className='flex justify-center'>
             <div className="card bg-base-300 w-96 shadow-sm">
                 <div className="card-body">
+                   {!isLoggedIn && <><fieldset className="fieldset">
+                        <legend className="fieldset-legend">First Name</legend>
+                        <input type="text" className="input" placeholder="Type here" value={firstName} onChange={(e)=>{setFirstName(e.target.value)}}/>
+                        
+                    </fieldset>
+
+                    <fieldset className="fieldset">
+                        <legend className="fieldset-legend">Last Name</legend>
+                        <input type="text" className="input" placeholder="Type here"  value={lastName} onChange={(e)=>{setLastName(e.target.value)}}/>
+                      
+                    </fieldset></>}
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend">Email ID</legend>
                         <input type="text" className="input" placeholder="Type here" value={email} onChange={(e)=>{setEmailId(e.target.value)}}/>
@@ -39,12 +72,13 @@ function Login() {
 
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend">Password</legend>
-                        <input type="text" className="input" placeholder="Type here"  value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
+                        <input type="password" className="input" placeholder="Type here"  value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
                       
                     </fieldset>
                     <p className='text-red-600'>{error}</p>
+                    <p className='cursor-pointer' onClick={()=> setIsLoggedIn(!isLoggedIn)}>{isLoggedIn ? "New user? Please sign up!" : "Existing user? Please Sign In!"}</p>
                     <div className="card-actions justify-center">
-                        <button className="btn btn-primary" onClick={loginHandler}>Login</button>
+                        <button className="btn btn-primary" onClick={isLoggedIn ? loginHandler : handleSignUp   }>{isLoggedIn ? "Login" : "Sign up"}</button>
                     </div>
                 </div>
             </div>
