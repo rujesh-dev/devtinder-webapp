@@ -10,8 +10,8 @@ function Login() {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [ email, setEmailId] = useState("chintu@gmail.com");
-    const [password, setPassword] = useState("Chintu@123");
+    const [ email, setEmailId] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(true)
     const dispatch = useDispatch();
