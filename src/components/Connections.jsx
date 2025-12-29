@@ -31,23 +31,24 @@ const Connections = () => {
 
 
     return (
-        <div className='text-center my-5' key={connections._id}>
-            <h1 className='my-5 text-2xl'>Connections</h1>
-            <div className='flex justify-center flex-col items-center gap-4'>
+        <div className='my-5' key={connections._id}>
+            <h1 className='my-5 text-2xl text-center'>Connections</h1>
+            <div className='grid grid-cols-1 gap-2 place-items-center'>
                 {
                     connections.map((connection) => {
                         const { _id, firstName, lastName, photoUrl, age, gender, about } = connection
-                        return (<div className='flex w-1/4 justify-between bg-base-300 p-3 rounded-2xl' key={_id}>
-
-                            <img src={connection.photoUrl} alt="Profile" className='h-20 w-20 rounded-full' />
-
-
-
-
-
-
+                        return (<div className='flex bg-base-300 w-fit rounded-2xl p-4 justify-between' key={_id}>
 
                             <div>
+                            <img src={connection.photoUrl} alt="Profile" className='h-20 w-20 rounded-full' />
+                            </div>
+
+
+
+
+
+
+                            <div className='mx-8 text-left'>
                                 <h2>{firstName + " " + lastName}</h2>
                                 <p>{age + ", " + gender}</p>
                                 <p>{about}</p>
