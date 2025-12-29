@@ -19,7 +19,7 @@ function Login() {
 
     const loginHandler = async ()=>{
         try{
-            const res = await axios.post("http://localhost:3000/login", {
+            const res = await axios.post(BASE_URL+"/login", {
                 email,
                 password
             }, {withCredentials: true})
@@ -50,7 +50,7 @@ function Login() {
 
     return (
 
-        <div className='flex justify-center'>
+        <div className='flex justify-center mt-8'>
             <div className="card bg-base-300 w-96 shadow-sm">
                 <div className="card-body">
                    {!isLoggedIn && <><fieldset className="fieldset">
